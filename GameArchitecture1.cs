@@ -47,13 +47,13 @@ namespace Dumb1 {
             // Definition control 2:
             char[,] charMenu2Options = new char[,] { { '0', '1' }, { '2', '2' } };
             // Point, потому что двумерный.
-            Point charMenu2SelectedOpionOndex = Point.Empty;
+            Point charMenu2SelectedOptionIndex = Point.Empty;
 
             Point charMenu2ConsoleLocation = new Point(5, 5);
             Point charMenu2OtherBufferLocation = new Point(10, 10);
 
             // Prerendering
-            charMenu2Options[charMenu2SelectedOpionOndex.X, charMenu2SelectedOpionOndex.Y] = '*';
+            charMenu2Options[charMenu2SelectedOptionIndex.X, charMenu2SelectedOptionIndex.Y] = '*';
 
             // Render control on Console:
             for (int r = 0; r < charMenu2Options.GetUpperBound(0); r++) {
@@ -97,12 +97,12 @@ namespace Dumb1 {
             #region Control 4
             // Definition control 4:
             char[,] charList2Options = new char[,] { { '3', '4' }, { '5', '6' } };
-            List<Point> charList2SelectedOpionIndexes = new List<Point>() { new Point(0, 0), new Point(0, 1) };
+            List<Point> charList2SelectedOptionIndexes = new List<Point>() { new Point(0, 0), new Point(0, 1) };
             Point charList2ConsoleLocation = Point.Empty;
             Point charList2OtherBufferLocation = new Point(5, 5);
 
             // Prerendering:
-            foreach (var optionIntex in charList2SelectedOpionIndexes) {
+            foreach (var optionIntex in charList2SelectedOptionIndexes) {
                 charList2Options[optionIntex.X, optionIntex.Y] = charList2Options[optionIntex.X, optionIntex.Y];
             }
 
