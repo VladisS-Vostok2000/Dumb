@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms.VisualStyles;
 
-namespace Other1 {
+namespace Other2 {
     public static class Buffer {
         public static void Write(char chr) {
             throw new NotImplementedException();
@@ -15,7 +15,7 @@ namespace Other1 {
     }
 }
 
-namespace Dumb1 {
+namespace Dumb2 {
     public static class Program {
         public static void Main() {
 
@@ -29,18 +29,8 @@ namespace Dumb1 {
             // Prerendering
             charMenu1Options[charMenu1SelectedOptionOndex] = "*" + charMenu1Options[charMenu1SelectedOptionOndex];
 
-            // Render control on Console:
-            for (int i = 0; i < charMenu1Options.Length; i++) {
-                Console.SetCursorPosition(charMenu1ConsoleLocation.X, charMenu1ConsoleLocation.Y + i);
-                Console.Write(charMenu1Options[i]);
-            }
-
-            // Render control on other buffer:
-            foreach (var str in charMenu1Options) {
-                foreach (var chr in str) {
-                    Other1.Buffer.Write(chr);
-                }
-            }
+            RenderInConsole(charMenu1Options, charMenu1ConsoleLocation);
+            RenderInOtherBuffer(charMenu1Options, charMenu1OtherBufferLocation);
             #endregion
 
             #region Control 2
@@ -55,17 +45,11 @@ namespace Dumb1 {
             // Prerendering
             charMenu2Options[charMenu2SelectedOptionIndex.X, charMenu2SelectedOptionIndex.Y] = '*';
 
-            // Render control on Console:
-            for (int r = 0; r < charMenu2Options.GetUpperBound(0); r++) {
-                for (int c = 0; c < charMenu2Options.GetUpperBound(1); c++) {
-                    Console.Write(charMenu2Options[r, c]);
-                }
-            }
+            RenderInConsole(charMenu2Options, charMenu2ConsoleLocation);
+            RenderInOtherBuffer(charMenu2Options, charMenu2OtherBufferLocation);
 
             // Render control on other buffer:
-            foreach (var chr in charMenu2Options) {
-                Other1.Buffer.Write(chr);
-            }
+
             #endregion
 
             #region Control 3
@@ -80,18 +64,8 @@ namespace Dumb1 {
                 charList1Strings[optionIndex] = "*" + charList1Strings[optionIndex];
             }
 
-            // Visualizing control in Console:
-            for (int i = 0; i < charList1Strings.Length; i++) {
-                Console.SetCursorPosition(charList1ConsoleLocation.X, charList1ConsoleLocation.Y + i);
-                Console.Write(charList1Strings[i]);
-            }
-
-            // Visualizing control in other buffer:
-            foreach (var str in charList1Strings) {
-                foreach (var chr in str) {
-                    Other1.Buffer.Write(chr);
-                }
-            }
+            RenderInConsole(charList1Strings, charList1ConsoleLocation);
+            RenderInOtherBuffer(charList1Strings, charList1OtherBufferLocation);
             #endregion
 
             #region Control 4
@@ -106,20 +80,38 @@ namespace Dumb1 {
                 charList2Options[optionIntex.X, optionIntex.Y] = charList2Options[optionIntex.X, optionIntex.Y];
             }
 
-            // Render control on console:
-            for (int r = 0; r < charList2Options.GetUpperBound(0); r++) {
-                for (int c = 0; c < charList2Options.GetUpperBound(1); c++) {
-                    Console.Write(charList2Options[r, c]);
-                }
-            }
-
-            // Render control on other buffer:
-            foreach (var chr in charList2Options) {
-                Other1.Buffer.Write(chr);
-            }
+            RenderInConsole(charList2Options, charList2ConsoleLocation);
+            RenderInOtherBuffer(charList2Options, charList2OtherBufferLocation);
             #endregion
 
         }
+
+        public static void RenderInConsole(string[] control, Point location) {
+            for (int i = 0; i < control.Length; i++) {
+                Console.SetCursorPosition(location.X, location.Y + i);
+                Console.Write(control[i]);
+            }
+        }
+        public static void RenderInOtherBuffer(string[] control, Point location) {
+            foreach (var str in control) {
+                foreach (var chr in str) {
+                    Other1.Buffer.Write(chr);
+                }
+            }
+        }
+        public static void RenderInConsole(char[,] control, Point location) {
+            for (int r = 0; r < control.GetUpperBound(0); r++) {
+                for (int c = 0; c < control.GetUpperBound(1); c++) {
+                    Console.Write(control[r, c]);
+                }
+            }
+        }
+        public static void RenderInOtherBuffer(char[,] control, Point location) {
+            foreach (var chr in control) {
+                Other1.Buffer.Write(chr);
+            }
+        }
+
     }
 }
 
