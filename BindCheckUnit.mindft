@@ -1,0 +1,88 @@
+print "Checking bind of unit\n"
+set maxUnitsOnMap 100
+op equal unitTypeNull unitType null
+ op add trueWay @counter 6
+ op add falseWay @counter n #->8
+ op mul temp1 unitTypeNull trueWay
+ op notEqual temp2 unitTypeNull true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+print "No unit type selected\n"
+set @counter return
+op notEqual unitBinded @unit null                #8
+ op add trueWay @counter 6
+ op add falseWay @counter n #->1
+ op mul temp1 unitBinded trueWay
+ op notEqual temp2 unitBinded true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+sensor unitDead @unit @dead                      #3
+ op add trueWay @counter n #->1
+ op add falseWay @counter 5
+ op mul temp1 unitDead trueWay
+ op notEqual temp2 unitDead true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+sensor unitFlag @unit @flag
+op equal unitFlagCorrect unitFlag processorFlag
+ op add trueWay @counter 6
+ op add falseWay @counter n #->1
+ op mul temp1 unitFlagCorrect trueWay
+ op notEqual temp2 unitFlagCorrect true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+print unitType
+print " in order\n"
+set @counter return
+ubind unitType                                   #1
+op equal noUnits @unit null
+ op add trueWay @counter 6
+ op add falseWay @counter n #->2
+ op mul temp1 noUnits trueWay
+ op notEqual temp2 noUnits true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+print "No "
+print unitType
+print "s on map\n"
+set @counter return
+set firstUnit @unit                              #2
+set i 0
+sensor unitFlag @unit @flag                      #7
+op equal unitFree unitFlag 0
+ op add trueWay @counter 6
+ op add falseWay @counter n #->4
+ op mul temp1 unitFree trueWay
+ op notEqual temp2 unitFree true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+ucontrol flag processorFlag 0 0 0 0
+set @counter n #->3
+op add i i 1                                     #4
+ubind unitType
+op equal allUnitsBusy @unit firstUnit
+ op add trueWay @counter 6
+ op add falseWay @counter n #->5
+ op mul temp1 allUnitsBusy trueWay
+ op notEqual temp2 allUnitsBusy true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
+print "All "                                     #6
+print unitType
+print "s busy\n"
+set @counter return
+op equal lastUnit i 100                          #5
+ op add trueWay @counter n #->6
+ op add falseWay @counter n #->7
+ op mul temp1 lastUnit trueWay
+ op notEqual temp2 lastUnit true
+ op mul temp3 falseWay temp2
+ op max adress temp1 temp3
+ set @counter adress
